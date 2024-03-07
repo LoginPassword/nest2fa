@@ -21,5 +21,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-empty-function': 'warn',
+    'prettier/prettier': ['warn', { endOfLine: 'auto', printWidth: 120 }],
+    'prefer-const': 'warn',
   },
 };
