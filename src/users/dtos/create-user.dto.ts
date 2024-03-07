@@ -1,19 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsDefined, IsEmail, IsEnum, IsString, Length } from 'class-validator';
+import { NormalizePhone } from 'src/common/normalizePhone.decorator';
 import { UserRole } from 'src/database/entities/user';
-
-export function NormalizePhone() {
-  return Transform(({ value }) => {
-    if (typeof value === 'string') {
-      return value.replace(/[^\d+]/g, '').replace(/(^\d)(.+)/, '+$1$2');
-    }
-    return value;
-  });
-}
 
 export class CreateUserDto {
   @ApiProperty({ example: 'user@mail.com' })
+  @IsDefined()
   @Transform((param) => param.value.toLowerCase())
   @IsEmail()
   email: string;

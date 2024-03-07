@@ -13,6 +13,7 @@ export class LoginDto {
 
   @ApiProperty({ example: 'user@mail.com' })
   @Transform((param) => param.value.toLowerCase())
+  @IsDefined()
   @IsEmail()
   email: string;
 

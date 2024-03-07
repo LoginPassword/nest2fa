@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNumberString, IsString, MaxLength, MinLength } from 'class-validator';
-import { NormalizePhone } from 'src/users/dtos/create-user.dto';
+import { NormalizePhone } from 'src/common/normalizePhone.decorator';
 
 export class PhoneLoginVerifyDto {
   @ApiProperty({ example: '+998987654321' })

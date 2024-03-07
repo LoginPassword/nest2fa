@@ -5,6 +5,7 @@ import { AppDataSource } from './database/data-source';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { SmsServiceModule } from './sms-service/sms-service.module';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { SmsServiceModule } from './sms-service/sms-service.module';
     UsersModule,
     AuthModule,
     SmsServiceModule,
+    NewsModule,
   ],
   controllers: [],
   providers: [],
