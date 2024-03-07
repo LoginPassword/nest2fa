@@ -11,7 +11,7 @@ import { plainToClass } from 'class-transformer';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async createUser({ phone, email, role, password }: CreateUserDto): Promise<UserResponseDto> {
@@ -43,5 +43,13 @@ export class UsersService {
   async getUsers() {
     const users = await this.userRepository.find();
     return plainToClass(UserResponseDto, users, { excludeExtraneousValues: true });
+  }
+
+  async getUserById(id: number) {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
+  async getUserByPhone(phone: string) {
+    return this.userRepository.findOne({ where: { phone } });
   }
 }

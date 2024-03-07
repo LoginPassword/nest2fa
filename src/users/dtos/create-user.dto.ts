@@ -14,6 +14,7 @@ export function NormalizePhone() {
 
 export class CreateUserDto {
   @ApiProperty({ example: 'user@mail.com' })
+  @Transform((param) => param.value.toLowerCase())
   @IsEmail()
   email: string;
 

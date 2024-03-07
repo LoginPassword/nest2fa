@@ -2,6 +2,8 @@ import { DataSource } from 'typeorm';
 
 import 'dotenv/config';
 import { User } from './entities/user';
+import { SentSms } from './entities/Sent-sms';
+import { RefreshToken } from './entities/Refresh-token';
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -10,7 +12,8 @@ export const AppDataSource = new DataSource({
   database: process.env.MYSQL_DATABASE,
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
+  timezone: 'Z',
 
-  entities: [User],
+  entities: [User, SentSms, RefreshToken],
   migrations: ['src/database/migrations/*.ts'],
 });

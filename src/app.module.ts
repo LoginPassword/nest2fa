@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AppDataSource } from './database/data-source';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { SmsServiceModule } from './sms-service/sms-service.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { UsersModule } from './users/users.module';
       }),
     }),
     UsersModule,
+    AuthModule,
+    SmsServiceModule,
   ],
   controllers: [],
   providers: [],
