@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -6,6 +6,8 @@ import { UserRole } from 'src/database/entities/user';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { IdIntParamDto } from 'src/common/id-int-param.dto';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -22,6 +24,13 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
+  @Get(':id')
+  @ApiOperation({ summary: 'Admin role required' })
+  @Roles(UserRole.ADMIN)
+  async getUserById(@Param() { id }: IdIntParamDto) {
+    return this.usersService.getUserById(id);
+  }
+
   @Post()
   @ApiOperation({ summary: 'Admin role required' })
   @Roles(UserRole.ADMIN)
@@ -30,5 +39,12 @@ export class UsersController {
   })
   async createUser(@Body() dto: CreateUserDto) {
     return this.usersService.createUser(dto);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Admin role required' })
+  @Roles(UserRole.ADMIN)
+  async updateUser(@Param() { id }: IdIntParamDto, @Body() dto: UpdateUserDto) {
+    return this.usersService.updateUser(id, dto);
   }
 }

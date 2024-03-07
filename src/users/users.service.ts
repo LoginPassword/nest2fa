@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User, UserStatus } from 'src/database/entities/user';
 import { Repository } from 'typeorm';
@@ -46,7 +46,39 @@ export class UsersService {
   }
 
   async getUserById(id: number) {
-    return this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('User not found');
+
+    return plainToClass(UserResponseDto, user, { excludeExtraneousValues: true });
+  }
+
+  async updateUser(id: number, dto: any) {
+    const { password, ...rest } = dto;
+    if (password) {
+      const salt = await bcrypt.genSalt();
+      rest.passwordHash = await bcrypt.hash(password, salt);
+    }
+
+    if (rest.phone || rest.email) {
+      const where = [];
+      if (rest.email) where.push({ email: rest.email });
+      if (rest.phone) where.push({ phone: rest.phone });
+
+      const existingEmailOrPhone = await this.userRepository.findOne({
+        where,
+      });
+
+      if (existingEmailOrPhone?.email === rest.email) {
+        throw new BadRequestException('Email already in use');
+      }
+      if (existingEmailOrPhone?.phone === rest.phone) {
+        throw new BadRequestException('Phone already in use');
+      }
+    }
+
+    await this.userRepository.update({ id }, rest);
+    const user = await this.userRepository.findOne({ where: { id } });
+    return plainToClass(UserResponseDto, user, { excludeExtraneousValues: true });
   }
 
   async getUserByPhone(phone: string) {

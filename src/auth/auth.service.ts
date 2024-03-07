@@ -101,9 +101,6 @@ export class AuthService {
     }
 
     const user = await this.usersService.getUserById(id);
-    if (!user) {
-      throw new UnauthorizedException('Invalid token');
-    }
 
     const { role, status, email, phone } = user;
 
