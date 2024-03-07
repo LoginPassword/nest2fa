@@ -1,4 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+
+export enum UserRole {
+  USER = 'USER',
+  MODERATOR = 'MODERATOR',
+  ADMIN = 'ADMIN',
+}
+
+export enum UserStatus {
+  ACTIVE = 'ACTIVE',
+  BAN = 'BAN',
+}
 
 @Entity()
 @Unique(['email'])
@@ -16,9 +27,15 @@ export class User {
   @Column({ length: 100 })
   passwordHash: string;
 
-  @Column({ type: 'enum', enum: ['user', 'moderator', 'admin'] })
-  role: 'user' | 'moderator' | 'admin';
+  @Column({ type: 'enum', enum: UserRole })
+  role: UserRole;
 
-  @Column({ type: 'enum', enum: ['active', 'ban'] })
-  status: 'active' | 'ban';
+  @Column({ type: 'enum', enum: UserStatus })
+  status: UserStatus;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 }
