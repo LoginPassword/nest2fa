@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
-import { ApiBadRequestResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserRole } from 'src/database/entities/user';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -16,12 +16,14 @@ export class UsersController {
 
   // GOTO pagination, filtering, and sorting
   @Get()
+  @ApiOperation({ summary: 'Admin role required' })
   @Roles(UserRole.ADMIN)
   async getUsers() {
     return this.usersService.getUsers();
   }
 
   @Post()
+  @ApiOperation({ summary: 'Admin role required' })
   @Roles(UserRole.ADMIN)
   @ApiBadRequestResponse({
     description: '\n- Email already in use\n- Phone already in use',
