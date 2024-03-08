@@ -5,7 +5,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { NewsService } from './news.service';
 import { IdIntParamDto } from 'src/common/id-int-param.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { UserRole } from 'src/database/entities/user';
+import { UserRole } from 'src/database/entities/User';
 import { UpdateNewsDto } from './dtos/update-news.dto';
 import { CreateNewsDto } from './dtos/create-news.dto';
 import { GetUser, JwtUser } from 'src/auth/decorators/get-user.decorator';

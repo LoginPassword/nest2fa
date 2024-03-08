@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { UserRole, UserStatus } from 'src/database/entities/user';
+import { UserRole, UserStatus } from 'src/database/entities/User';
 
 export class UserResponseDto {
   @ApiProperty({ example: 1 })

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsDefined, IsEmail, IsEnum, IsString, Length } from 'class-validator';
 import { NormalizePhone } from 'src/common/normalizePhone.decorator';
-import { UserRole } from 'src/database/entities/user';
+import { UserRole } from 'src/database/entities/User';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'user@mail.com' })

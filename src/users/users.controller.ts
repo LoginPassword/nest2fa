@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/co
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UserRole } from 'src/database/entities/user';
+import { UserRole } from 'src/database/entities/User';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AuthGuard } from '@nestjs/passport';

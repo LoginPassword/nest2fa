@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 
 import 'dotenv/config';
-import { User } from './entities/user';
+import { User } from './entities/User';
 import { SentSms } from './entities/Sent-sms';
 import { RefreshToken } from './entities/Refresh-token';
 import { News } from './entities/News';
